@@ -4,6 +4,7 @@ from django.db.models.signals import post_save, post_delete
 
 from .signals_handlers import post_votes_decrement, post_votes_increment
 
+
 class Post(models.Model):
     title = models.CharField(max_length=128)
     link = models.CharField(max_length=256)
@@ -49,6 +50,9 @@ class Vote(models.Model):
 
     class Meta:
         unique_together = ('post', 'user')
+
+    def __str__(self):
+        return f'Vote by {self.user.full_name} for post {self.post.pk}'
 
 
 post_save.connect(post_votes_increment, sender=Vote)

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+CRONJOBS = [
+    ('0 0 * * *', 'news.cron.reset_upvotes_count')
+]
