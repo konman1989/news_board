@@ -11,9 +11,9 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('posts/<int:pk>/comments/', views.CommentView.as_view(),
-         name='post_comments'),
+         name='comments'),
     path('posts/<int:pk>/comments/<int:pk2>/',
-         views.CommentDetailView.as_view(), name='post_comments_detail'),
+         views.CommentDetailView.as_view(), name='comments_detail'),
     path('posts/<int:pk>/upvote/', views.Upvote.as_view(),
-         name='upvote'),
+         name='post_upvote'),
 ]

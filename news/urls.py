@@ -19,11 +19,12 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from users.views import UserCreateView, LoginView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/register/', UserCreateView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v1/token/', LoginView.as_view(), name='user_register'),
+    path('api/v1/register/', UserCreateView.as_view(),
+         name='user_register'),
+    path('api/v1/token/', LoginView.as_view(), name='user_login'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(),
+         name='token_refresh'),
     path('api/v1/', include('posts.urls', 'posts_api')),
 ]
