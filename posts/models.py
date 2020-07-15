@@ -10,9 +10,9 @@ class Post(models.Model):
     link = models.CharField(max_length=256)
     created_on = models.DateTimeField(auto_now_add=True)
     upvotes = models.PositiveIntegerField(default=0)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               on_delete=models.CASCADE,
-                               related_name='posts')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
+    )
 
     def __str__(self):
         return f"Post by {self.author.full_name}"
@@ -29,30 +29,26 @@ class Post(models.Model):
 class Comment(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               on_delete=models.CASCADE,
-                               related_name='comments')
-    post = models.ForeignKey(Post,
-                             on_delete=models.CASCADE,
-                             related_name='comments')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
 
     def __str__(self):
         return f"Comment to post {self.post.pk}"
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             related_name='votes',
-                             on_delete=models.CASCADE)
-    post = models.ForeignKey(Post,
-                             related_name='votes',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="votes", on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(Post, related_name="votes", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('post', 'user')
+        unique_together = ("post", "user")
 
     def __str__(self):
-        return f'Vote by {self.user.full_name} for post {self.post.pk}'
+        return f"Vote by {self.user.full_name} for post {self.post.pk}"
 
 
 post_save.connect(post_votes_increment, sender=Vote)

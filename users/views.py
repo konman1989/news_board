@@ -17,14 +17,12 @@ class UserCreateView(CreateAPIView):
         instance = serializer.save()
         refresh = RefreshToken.for_user(instance)
         data = serializer.data
-        data['token'] = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
+        data["token"] = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
         }
         headers = self.get_success_headers(data)
-        return Response(data,
-                        status=status.HTTP_201_CREATED,
-                        headers=headers)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class LoginView(TokenObtainPairView):
