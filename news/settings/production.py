@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from datetime import timedelta
 
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -91,11 +92,6 @@ WSGI_APPLICATION = "news.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": os.environ["POSTGRES_HOST"],
-        "PORT": 5432,
     }
 }
 
@@ -149,3 +145,5 @@ SIMPLE_JWT = {
 
 CRONJOBS = [("0 0 * * *", "news.cron.reset_upvotes_count")]
 
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
