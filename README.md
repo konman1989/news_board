@@ -1,4 +1,4 @@
-# Social REST API
+# News Board REST API
 ## Python 3.8, Django 3
 
 This is a simple REST Api for a news aggregator.
@@ -15,6 +15,13 @@ cp .env-example .env
 ```
 docker-compose build
 docker-compose up
+```
+
+## Setup crontab
+```
+python manage.py crontab add
+python manage.py crontab show
+python manage.py crontab remove
 ```
 ## Postman documentation
 Can be found at [link](https://documenter.getpostman.com/view/9716619/T17Q5jLk?version=latest)
